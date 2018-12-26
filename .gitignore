@@ -1,18 +1,19 @@
 obj
 bin
 sln
+vs
+.csproj
 .vscode
-AspNetCoreTodo/.vs/AspNetCoreTodo/DesignTimeBuild/.dtbcache
-AspNetCoreTodo/.vs/AspNetCoreTodo/v15/.suo
-AspNetCoreTodo/.vs/AspNetCoreTodo/v15/Server/sqlite3/db.lock
-AspNetCoreTodo/.vs/AspNetCoreTodo/v15/Server/sqlite3/storage.ide
-AspNetCoreTodo/.vs/AspNetCoreTodo/v15/Server/sqlite3/storage.ide-shm
-AspNetCoreTodo/.vs/AspNetCoreTodo/v15/Server/sqlite3/storage.ide-wal
-
-AspNetCoreTodo/AspNetCoreTodo.csproj.user
-AspNetCoreTodo/Properties/PublishProfiles/GilabertTodo - Web Deploy.pubxml
-AspNetCoreTodo/Properties/PublishProfiles/GilabertTodo - Web Deploy.pubxml.user
-AspNetCoreTodo/Properties/PublishProfiles/GilabertTodoApp - Web Deploy.pubxml
-AspNetCoreTodo/Properties/PublishProfiles/GilabertTodoApp - Web Deploy.pubxml.user
-AspNetCoreTodo/app.db
-AspNetCoreTodo/debug.log
+.dtbcache
+.suo
+.lock
+.ide
+.ide-shm
+.ide-wal
+.csproj.user
+.pubxml
+.pubxml.user
+.pubxml
+.pubxml.user
+.db
+.log
