@@ -5,7 +5,7 @@ This project is going to be an MVC Net Core web app, for doing personal or publi
 Some of the features to be implemented to this project are:
 
 - Carga de lugares visitados
-	- Nombre, dirección, categoría.
+	- Nombre, direcciÃ³n, categorÃ­a.
 	- Carga de productos que vende (CARTA)
 	con precios de referencia (opcional)
 
@@ -16,6 +16,9 @@ Some of the features to be implemented to this project are:
 		Ambiente
 		Productos (promedio de reviews de productos)
 	- Carga de fotos
+		- https://www.youtube.com/watch?v=B0aVXo4G-LE
+	- Uso de reCaptch
+		- https://www.google.com/recaptcha/intro/v3.html
 
 - Review de productos consumidos
 	- Evaluar con 1 a 5 estrellas
@@ -23,9 +26,9 @@ Some of the features to be implemented to this project are:
 	- Carga de fotos
 
 - Busqueda
-	-Por barrio o cercanía a dirección (gps en mobile)
+	-Por barrio o cercanÃ­a a direcciÃ³n (gps en mobile)
 	-Por producto
-	-Por categoría
+	-Por categorÃ­a
 	-En mapa
 	-Posibilidad de ordenamiento por diferentes campos
 	
