@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyPersonalReviewer.Models;
 
 namespace MyPersonalReviewer.Data
 {
@@ -12,5 +13,8 @@ namespace MyPersonalReviewer.Data
             : base(options)
         {
         }
+        public DbSet<Places> Places { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }
