@@ -1,0 +1,4 @@
+C:\Users\Wewe\Desktop\Repository\MyPersonalReviewer\Tests\obj\Debug\netcoreapp2.1\Tests.csprojAssemblyReference.cache
+C:\Users\Wewe\Desktop\Repository\MyPersonalReviewer\Tests\obj\Debug\netcoreapp2.1\Tests.csproj.CoreCompileInputs.cache
+C:\Users\Wewe\Desktop\Repository\MyPersonalReviewer\Tests\obj\Debug\netcoreapp2.1\Tests.AssemblyInfoInputs.cache
+C:\Users\Wewe\Desktop\Repository\MyPersonalReviewer\Tests\obj\Debug\netcoreapp2.1\Tests.AssemblyInfo.cs
