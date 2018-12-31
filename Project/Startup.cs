@@ -12,7 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using MyPersonalReviewer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Project.Models;
+using MyPersonalReviewer.Models;
+using MyPersonalReviewer.Controllers;
 
 namespace MyPersonalReviewer
 {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyPersonalReviewer.Models;
 
-namespace Project.Services
+namespace MyPersonalReviewer.Controllers
 {
-    public class IPlacesService
+    public interface IPlacesService
     {
-        
+    Task<bool> AddPlaceAsync(Places newPlace,ApplicationUser user);
     }
 }

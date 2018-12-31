@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Project.Models
+namespace MyPersonalReviewer.Models
 {
     public class ApplicationUser:IdentityUser
     {
