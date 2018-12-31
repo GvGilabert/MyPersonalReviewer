@@ -9,6 +9,7 @@ namespace MyPersonalReviewer.Models
     {
         public enum Categories
         {
+            Undefined,
             Bar,
             Cafe,
             Restaurant,

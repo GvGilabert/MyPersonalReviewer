@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyPersonalReviewer.Controllers;
 using MyPersonalReviewer.Models;
-using Project.Models;
 
 namespace MyPersonalReviewer.Data
 {

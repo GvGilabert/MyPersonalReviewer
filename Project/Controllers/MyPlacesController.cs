@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Project.Models;
-using Project.Services;
+using MyPersonalReviewer.Models;
 
-namespace Project.Controllers
+namespace MyPersonalReviewer.Controllers
 {
     public class MyPlacesController:Controller
     {

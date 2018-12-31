@@ -14,4 +14,9 @@ namespace MyPersonalReviewer.Models
         public string CreatedByUserId { get; set; }
 
     }
+
+    public class PlaceIncompleteDataException : Exception
+    {
+        
+    }
 }

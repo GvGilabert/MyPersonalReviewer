@@ -339,6 +339,18 @@
       "Microsoft.EntityFrameworkCore.Analyzers/2.2.0": {
         "type": "package"
       },
+      "Microsoft.EntityFrameworkCore.InMemory/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.InMemory.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.InMemory.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -2907,6 +2919,18 @@
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "microsoft.entityframeworkcore.analyzers.2.2.0.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/2.2.0": {
+      "sha512": "zm7Lotv6v5fyE+EnUG/yVPd9k0CTg82bltco4y4Vlfrq4vOSq8yCPC47PmwaVVY9yG5r7FFXGzt7aTE2ycSKyA==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.inmemory/2.2.0",
+      "files": [
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.InMemory.dll",
+        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.InMemory.xml",
+        "microsoft.entityframeworkcore.inmemory.2.2.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/2.2.0": {
@@ -7798,6 +7822,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.2.0",
+      "Microsoft.EntityFrameworkCore.InMemory >= 2.2.0",
       "Microsoft.NET.Test.Sdk >= 15.8.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "MyPersonalReviewer >= 1.0.0",
@@ -7812,11 +7837,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Tests\\Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "c:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Tests\\Tests.csproj",
+      "projectPath": "C:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Tests\\Tests.csproj",
       "packagesPath": "C:\\Users\\Wewe\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7835,8 +7860,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "c:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Project\\MyPersonalReviewer.csproj": {
-              "projectPath": "c:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Project\\MyPersonalReviewer.csproj"
+            "C:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Project\\MyPersonalReviewer.csproj": {
+              "projectPath": "C:\\Users\\Wewe\\Desktop\\Repository\\MyPersonalReviewer\\Project\\MyPersonalReviewer.csproj"
             }
           }
         }
@@ -7851,6 +7876,10 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.EntityFrameworkCore.InMemory": {
             "target": "Package",
             "version": "[2.2.0, )"
           },
