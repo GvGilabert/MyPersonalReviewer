@@ -15,8 +15,6 @@ namespace MyPersonalReviewer.Models
 
     }
 
-    public class PlaceIncompleteDataException : Exception
-    {
-        
-    }
+    public class PlaceIncompleteDataException : Exception{}
+    public class InvalidUserException : Exception{} 
 }
