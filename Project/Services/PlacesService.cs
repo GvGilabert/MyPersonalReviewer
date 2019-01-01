@@ -36,7 +36,7 @@ namespace MyPersonalReviewer.Services
         public async Task<bool> DeletePlaceAsync(Places PlaceToDelete, ApplicationUser user)
         {
             if(PlaceToDelete.CreatedByUserId != user.Id)
-                throw new InvalidUserException();
+                 throw new InvalidUserException();
                 
             var place = await _context.Places.Where
             (p=> p.Id==PlaceToDelete.Id

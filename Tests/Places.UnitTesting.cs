@@ -26,7 +26,7 @@ namespace Tests
             };
         }
 
-         public static Places CreateFakeItem(string fakeName, string fakeAddress,Categories category,string userId)
+         public static Places CreateFakePlace(string fakeName, string fakeAddress,Categories category,string userId)
         {
             return new Places
             {
@@ -47,7 +47,7 @@ namespace Tests
             {
                 var service = new PlacesService(context);
                 var user = CreateFakeUsers(0);
-                await service.AddPlaceAsync(CreateFakeItem("FakeName","FakeAddress",Categories.Bar,user.Id ),user);
+                await service.AddPlaceAsync(CreateFakePlace("FakeName","FakeAddress",Categories.Bar,user.Id ),user);
             }
 
             using (var context = new ApplicationDbContext(options))
@@ -69,7 +69,7 @@ namespace Tests
                 {
                     var service = new PlacesService(context);
                     var user = CreateFakeUsers(1);
-                    await service.AddPlaceAsync(CreateFakeItem("","FakeAddress",Categories.Bar,user.Id ),user);
+                    await service.AddPlaceAsync(CreateFakePlace("","FakeAddress",Categories.Bar,user.Id ),user);
                 }
                 throw new Exception();
             }
@@ -93,7 +93,7 @@ namespace Tests
                 {
                     var service = new PlacesService(context);
                     var user = CreateFakeUsers(2);
-                    await service.AddPlaceAsync(CreateFakeItem("FakeUserA","",Categories.Bar,user.Id ),user);
+                    await service.AddPlaceAsync(CreateFakePlace("FakeUserA","",Categories.Bar,user.Id ),user);
                 }
                 throw new Exception();
             }
@@ -116,7 +116,7 @@ namespace Tests
                 {
                     var service = new PlacesService(context);
                     var user = CreateFakeUsers(3);
-                    await service.AddPlaceAsync(CreateFakeItem("FakeUserA","",Categories.Undefined,user.Id ),user);
+                    await service.AddPlaceAsync(CreateFakePlace("FakeUserA","",Categories.Undefined,user.Id ),user);
                 }
                 throw new Exception();
             }
@@ -126,6 +126,7 @@ namespace Tests
                 {
                     var service = new PlacesService(context);
                     Assert.Empty(await context.Places.ToArrayAsync());
+                    context.Database.EnsureDeleted();
                 }
             }
         }
@@ -139,8 +140,8 @@ namespace Tests
             {
                 var service = new PlacesService(context);
                 var user = CreateFakeUsers(4);
-                await service.AddPlaceAsync(CreateFakeItem("FakeName","FakeAddress",Categories.Bar,user.Id),user);
-                var addedPlace = await context.Places.FirstAsync();
+                await service.AddPlaceAsync(CreateFakePlace("FakeName","FakeAddress",Categories.Bar,user.Id),user);
+                var addedPlace = await context.Places.FirstOrDefaultAsync();
                 await service.DeletePlaceAsync(addedPlace,user);
             }
 
@@ -164,7 +165,7 @@ namespace Tests
                     var service = new PlacesService(context);
                     var user = CreateFakeUsers(5);
                     var iUser = CreateFakeUsers(6);
-                    await service.AddPlaceAsync(CreateFakeItem("FakeName","FakeAddress",Categories.Bar,user.Id),user);
+                    await service.AddPlaceAsync(CreateFakePlace("FakeName","FakeAddress",Categories.Bar,user.Id),user);
                     var addedPlace = await context.Places.FirstAsync(); 
                     await service.DeletePlaceAsync(addedPlace,iUser);
                 }
