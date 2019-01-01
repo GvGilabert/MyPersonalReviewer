@@ -8,5 +8,6 @@ namespace MyPersonalReviewer.Controllers
     public interface IPlacesService
     {
     Task<bool> AddPlaceAsync(Places newPlace,ApplicationUser user);
+    Task<bool> DeletePlaceAsync(Places PlaceToDelete, ApplicationUser user);
     }
 }

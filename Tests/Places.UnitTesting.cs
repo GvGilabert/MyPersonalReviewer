@@ -37,7 +37,6 @@ namespace Tests
             };
             
         }
-        public ApplicationUser user;
 
         [Fact]
         public async void AddNewPlaceWithAllFieldsShouldAddItCorrectly()
@@ -127,6 +126,57 @@ namespace Tests
                 {
                     var service = new PlacesService(context);
                     Assert.Empty(await context.Places.ToArrayAsync());
+                }
+            }
+        }
+
+        [Fact]
+        public async void DeletePlaceWithCorrectUserShouldDeleteCorrectly()
+        {
+            var options = CreateDbContext();
+            
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new PlacesService(context);
+                var user = CreateFakeUsers(4);
+                await service.AddPlaceAsync(CreateFakeItem("FakeName","FakeAddress",Categories.Bar,user.Id),user);
+                var addedPlace = await context.Places.FirstAsync();
+                await service.DeletePlaceAsync(addedPlace,user);
+            }
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new PlacesService(context);
+                Assert.Empty(await context.Places.ToArrayAsync());
+                context.Database.EnsureDeleted();
+            }
+            
+        }
+
+        [Fact]
+        public async void DeletePlaceWithIncorrectUserShouldFail()
+        {
+            var options = CreateDbContext();
+            try
+            {
+                using (var context = new ApplicationDbContext(options))
+                {
+                    var service = new PlacesService(context);
+                    var user = CreateFakeUsers(5);
+                    var iUser = CreateFakeUsers(6);
+                    await service.AddPlaceAsync(CreateFakeItem("FakeName","FakeAddress",Categories.Bar,user.Id),user);
+                    var addedPlace = await context.Places.FirstAsync(); 
+                    await service.DeletePlaceAsync(addedPlace,iUser);
+                }
+                throw new Exception();
+            }
+            catch (InvalidUserException)
+            {
+                using (var context = new ApplicationDbContext(options))
+                {
+                    var service = new PlacesService(context);
+                    Assert.NotEmpty(await context.Places.ToArrayAsync());
+                    context.Database.EnsureDeleted();
                 }
             }
         }
