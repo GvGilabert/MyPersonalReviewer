@@ -9,5 +9,10 @@ namespace MyPersonalReviewer.Controllers
     {
     Task<bool> AddPlaceAsync(Places newPlace,ApplicationUser user);
     Task<bool> DeletePlaceAsync(Places PlaceToDelete, ApplicationUser user);
+    Task<Places[]> GetPlacesList();
+    Task<Places[]> GetPlacesList(ApplicationUser user);
+    Task<Menu[]> GetMenuItemsList(Places place);
+    Task<bool> AddMenuItemAsync(Menu menu, Places place, ApplicationUser user);
+
     }
 }
