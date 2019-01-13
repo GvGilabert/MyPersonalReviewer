@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using MyPersonalReviewer.Data;
 using MyPersonalReviewer.Models;
 using MyPersonalReviewer.Services;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Tests
 {
@@ -26,6 +28,20 @@ namespace Tests
             _context.Reviews.Add(review);
             var result = await _context.SaveChangesAsync();
             return result == 1;
+        }
+
+        public async Task<int> CalculateAverageAsync(Places places)
+        {
+            var result = await  _context.Reviews
+                        .Where(x => x.PlaceId == places.Id)
+                        .Select(p => p.Points).ToArrayAsync();
+            
+            return (result.Length==0) ? 0 : (int)result.Average();
+        }
+
+        public async Task<Review[]> GetAllReviewsFromAsync(Places place)
+        {
+            return await _context.Reviews.Where(r => r.PlaceId == place.Id).ToArrayAsync();
         }
     }
 }

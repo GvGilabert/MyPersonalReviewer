@@ -15,7 +15,7 @@ namespace Tests
     {
         public static DbContextOptions<ApplicationDbContext> CreateDbContext ()
         {
-            return new DbContextOptionsBuilder<MyPersonalReviewer.Data.ApplicationDbContext>().UseInMemoryDatabase(databaseName: "Test_AddNewItem").Options;
+            return new DbContextOptionsBuilder<MyPersonalReviewer.Data.ApplicationDbContext>().UseInMemoryDatabase(databaseName: "Test_AddNewItem"+Guid.NewGuid()).Options;
         }
          public static ApplicationUser CreateFakeUsers(int id)
         {
@@ -139,7 +139,7 @@ namespace Tests
             using (var context = new ApplicationDbContext(options))
             {
                 var service = new PlacesService(context);
-                var user = CreateFakeUsers(4);
+                var user = CreateFakeUsers(0);
                 await service.AddPlaceAsync(CreateFakePlace("FakeName","FakeAddress",Categories.Bar,user.Id),user);
                 var addedPlace = await context.Places.FirstOrDefaultAsync();
                 await service.DeletePlaceAsync(addedPlace,user);
