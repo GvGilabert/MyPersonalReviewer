@@ -18,6 +18,20 @@ namespace MyPersonalReviewer.Services
             _context = context;
         }
 
+        public async Task<bool> AddMenuItemAsync(Menu newMenu, Places place, ApplicationUser user)
+        {
+            newMenu.Id = Guid.NewGuid();
+            newMenu.CreatorsId = user.Id;
+            newMenu.PlaceId = place.Id;
+
+            if(string.IsNullOrEmpty(newMenu.Name))
+                throw new MenuItemIncompleteDataException();
+
+            _context.Menus.Add(newMenu);
+            var result = await _context.SaveChangesAsync();
+            return result==1;
+        }
+
         public async Task<bool> AddPlaceAsync(Places newPlace, ApplicationUser user)
         {
             newPlace.Id = Guid.NewGuid();
@@ -48,6 +62,20 @@ namespace MyPersonalReviewer.Services
             _context.Places.Remove(place);
             var result = await _context.SaveChangesAsync();
             return result == 1;
+        }
+
+        public async Task<Menu[]> GetMenuItemsList(Places place)
+        {
+            return await _context.Menus.Where(m => m.PlaceId == place.Id).ToArrayAsync();
+        }
+
+        public async Task<Places[]> GetPlacesList()
+        {
+            return await _context.Places.ToArrayAsync();
+        }
+        public async Task<Places[]> GetPlacesList(ApplicationUser user)
+        {
+            return await _context.Places.Where(p => p.CreatedByUserId == user.Id).ToArrayAsync();
         }
     }
 }

@@ -9,6 +9,10 @@ namespace MyPersonalReviewer.Models
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public string CreatorsId { get; set; }
+        public Guid PlaceId { get; set; }
         public Guid Id { get; set; }
     }
+
+    public class MenuItemIncompleteDataException:Exception{};
 }
