@@ -15,7 +15,7 @@ namespace Tests
     {
         public static DbContextOptions<ApplicationDbContext> CreateDbContext ()
         {
-            return new DbContextOptionsBuilder<MyPersonalReviewer.Data.ApplicationDbContext>().UseInMemoryDatabase(databaseName: "Test_AddNewItem").Options;
+            return new DbContextOptionsBuilder<MyPersonalReviewer.Data.ApplicationDbContext>().UseInMemoryDatabase(databaseName: "Test_AddNewItem"+Guid.NewGuid()).Options;
         }
         public static ApplicationUser CreateFakeUsers(int id)
         {
@@ -47,7 +47,7 @@ namespace Tests
                 Points = 3
             };
         }
-          public static Review CreateFakeReview(Places place, ApplicationUser user, string title, string review, int stars)
+        public static Review CreateFakeReview(Places place, ApplicationUser user, string title, string review, int stars)
         {
             return new Review
             {
@@ -74,6 +74,7 @@ namespace Tests
             {
                 var service = new ReviewsService(context);
                 Assert.NotNull(await context.Reviews.FirstAsync());
+                context.Database.EnsureDeleted();
             }
         }
 
@@ -99,6 +100,7 @@ namespace Tests
                 {
                     var service = new ReviewsService(context);
                     Assert.Empty(await context.Reviews.ToArrayAsync());
+                    context.Database.EnsureDeleted();
                 }
             }
         }
@@ -125,7 +127,116 @@ namespace Tests
                 {
                     var service = new ReviewsService(context);
                     Assert.Empty(await context.Reviews.ToArrayAsync());
+                    context.Database.EnsureDeleted();
                 }
+            }
+        }
+
+        [Fact]
+        public async void CalculateReviewsPointsAverageFromSameUserForPlaceShouldReturn3()
+        {
+            var options = CreateDbContext();
+            var userA = CreateFakeUsers(5);
+            Places place =  CreateFakePlace("FakeName","FakeAddress",Categories.Bar,userA.Id); 
+            Review reviewA = CreateFakeReview(place,userA,"test","Test",2);
+            Review reviewB = CreateFakeReview(place,userA,"test","Test",3);
+            Review reviewC = CreateFakeReview(place,userA,"test","Test",4);
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                await service.AddReviewAsync(reviewA,place,userA);
+                await service.AddReviewAsync(reviewB,place,userA);
+                await service.AddReviewAsync(reviewC,place,userA);
+            }
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                Assert.True(await service.CalculateAverageAsync(place)==3);
+                context.Database.EnsureDeleted();
+            }
+        }
+        [Fact]
+        public async void CalculateReviewsPointsAverageFromDifferentUsersForPlaceShouldReturn3()
+        {
+            var options = CreateDbContext();
+            var userA = CreateFakeUsers(1);
+            var userB = CreateFakeUsers(2);
+            var userC = CreateFakeUsers(3);
+            Places place =  CreateFakePlace("FakeName","FakeAddress",Categories.Bar,userC.Id); 
+            Review reviewA = CreateFakeReview(place,userA,"test","Test",2);
+            Review reviewB = CreateFakeReview(place,userB,"test","Test",3);
+            Review reviewC = CreateFakeReview(place,userC,"test","Test",4);
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                await service.AddReviewAsync(reviewA,place,userA);
+                await service.AddReviewAsync(reviewB,place,userB);
+                await service.AddReviewAsync(reviewC,place,userC);
+            }
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                Assert.True(await service.CalculateAverageAsync(place)==3);
+                context.Database.EnsureDeleted();
+            }
+        }
+        [Fact]
+        public async void CalculateReviewsPointsAverageWithNoReviewsShouldReturn0()
+        {
+            
+            var options = CreateDbContext();
+            var userA = CreateFakeUsers(1);
+            Places place =  CreateFakePlace("FakeName","FakeAddress",Categories.Bar,userA.Id); 
+            
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                Assert.True(await service.CalculateAverageAsync(place)==0);
+                context.Database.EnsureDeleted();
+            }
+        }
+        [Fact]
+        public async void GetAllReviewsFromAPlaceShouldReturnCorrectly()
+        {
+            var options = CreateDbContext();
+            var userA = CreateFakeUsers(1);
+            var userB = CreateFakeUsers(2);
+            var userC = CreateFakeUsers(3);
+            Places place =  CreateFakePlace("FakeName","FakeAddress",Categories.Bar,userC.Id); 
+            Review reviewA = CreateFakeReview(place,userA,"test","Test",2);
+            Review reviewB = CreateFakeReview(place,userB,"test","Test",3);
+            Review reviewC = CreateFakeReview(place,userC,"test","Test",4);
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                await service.AddReviewAsync(reviewA,place,userA);
+                await service.AddReviewAsync(reviewB,place,userB);
+                await service.AddReviewAsync(reviewC,place,userC);
+            }
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                Review [] revArr = await service.GetAllReviewsFromAsync(place);
+                Assert.True(revArr.Length == 3);
+                context.Database.EnsureDeleted();
+            }
+        }
+        [Fact]
+        public async void GetAllReviewsFromAPlaceWithNoReviewsShouldReturnEmpty()
+        {
+            var options = CreateDbContext();
+            var userA = CreateFakeUsers(1);
+            Places place =  CreateFakePlace("FakeName","FakeAddress",Categories.Bar,userA.Id);
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var service = new ReviewsService(context);
+                Review [] revArr = await service.GetAllReviewsFromAsync(place);
+                Assert.Empty(revArr);
+                context.Database.EnsureDeleted();
             }
         }
     }
