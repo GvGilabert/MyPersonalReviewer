@@ -4,15 +4,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MyPersonalReviewer.Models;
+using MyPersonalReviewer.Services;
+using static MyPersonalReviewer.Models.GeolocatorApiReplyModel;
 
 namespace MyPersonalReviewer.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        readonly IConfiguration _config;
+        readonly IPlacesService _service;
+        public HomeController(IConfiguration config, IPlacesService service)
         {
-            return View();
+            _config = config;
+            _service = service;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var modelData = await _service.GetPlacesList();
+            
+            MyPlacesViewModel model = new MyPlacesViewModel()
+            {
+                Places = modelData
+            };
+            ViewData["ApiKey"] = _config.GetSection("GeoLocationApi").GetSection("ApiKey").Value;
+            return View(model);
         }
 
         public IActionResult About()
@@ -38,6 +55,15 @@ namespace MyPersonalReviewer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        //temporal
+        public async Task<IActionResult> SearchAddress(string address)
+        {
+        MapApiService mapSer = new MapApiService(_config);
+        var apiReply = await mapSer.GeolocationServiceAsync(address);
+        return View(apiReply);
+         
         }
     }
 }
