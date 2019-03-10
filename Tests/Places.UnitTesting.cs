@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using MyPersonalReviewer.Data;
 using static MyPersonalReviewer.Models.Enums;
+using Microsoft.Extensions.Configuration;
 
 namespace Tests
 {
@@ -35,7 +36,6 @@ namespace Tests
                 Category = category,
                 CreatedByUserId = userId
             };
-            
         }
 
         public static Menu CreateFakeMenuItem(string fakeName, decimal fakePrice, ApplicationUser user)
@@ -66,7 +66,6 @@ namespace Tests
                 Assert.NotNull(await context.Places.FirstAsync());
                 context.Database.EnsureDeleted();
             }
-            
         }
 
         [Fact]
@@ -116,6 +115,7 @@ namespace Tests
                 }
             }
         }
+
         [Fact]
         public async void AddNewPlaceWithUndefinedCategoryShouldFail()
         {
@@ -160,8 +160,7 @@ namespace Tests
                 var service = new PlacesService(context);
                 Assert.Empty(await context.Places.ToArrayAsync());
                 context.Database.EnsureDeleted();
-            }
-            
+            }    
         }
 
         [Fact]
@@ -202,7 +201,6 @@ namespace Tests
             using (var context = new ApplicationDbContext(options))
             {
                 var service = new PlacesService(context);
-                
                 var menu = CreateFakeMenuItem("FakeMenuName",20.50m,user);
                 await service.AddPlaceAsync(place,user);
                 await service.AddMenuItemAsync(menu,place,user);
@@ -217,7 +215,6 @@ namespace Tests
                 Assert.True(menuItem.PlaceId == place.Id);
                 context.Database.EnsureDeleted();
             }
-            
         }
         
         [Fact]
@@ -301,9 +298,9 @@ namespace Tests
         public async void GetAllPlacesFromAUserShouldReturnAllCorrectly()
         {
             var options = CreateDbContext();
-                var user = CreateFakeUsers(0);
-                var userA = CreateFakeUsers(1);
-                var userB = CreateFakeUsers(2);
+            var user = CreateFakeUsers(0);
+            var userA = CreateFakeUsers(1);
+            var userB = CreateFakeUsers(2);
             
             using (var context = new ApplicationDbContext(options))
             {
@@ -351,6 +348,5 @@ namespace Tests
                 context.Database.EnsureDeleted();
             }   
         }
-    
     }
 }
