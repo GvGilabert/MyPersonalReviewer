@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MyPersonalReviewer.Models;
 using MyPersonalReviewer.Controllers;
 using MyPersonalReviewer.Services;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Security.Claims;
 
 namespace MyPersonalReviewer
 {
@@ -45,6 +47,11 @@ namespace MyPersonalReviewer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IPlacesService,PlacesService>();
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = Configuration.GetSection("Google").GetSection("Id").Value;
+                googleOptions.ClientSecret=Configuration.GetSection("Google").GetSection("Secret").Value;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
