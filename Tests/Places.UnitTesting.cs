@@ -152,7 +152,7 @@ namespace Tests
                 var user = CreateFakeUsers(0);
                 await service.AddPlaceAsync(CreateFakePlace("FakeName","FakeAddress",Categories.Bar,user.Id),user);
                 var addedPlace = await context.Places.FirstOrDefaultAsync();
-                await service.DeletePlaceAsync(addedPlace,user);
+                await service.DeletePlaceAsync(addedPlace.Id,user);
             }
 
             using (var context = new ApplicationDbContext(options))
@@ -176,7 +176,7 @@ namespace Tests
                     var iUser = CreateFakeUsers(6);
                     await service.AddPlaceAsync(CreateFakePlace("FakeName","FakeAddress",Categories.Bar,user.Id),user);
                     var addedPlace = await context.Places.FirstAsync(); 
-                    await service.DeletePlaceAsync(addedPlace,iUser);
+                    await service.DeletePlaceAsync(addedPlace.Id,iUser);
                 }
                 throw new Exception();
             }
