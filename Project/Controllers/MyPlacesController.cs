@@ -23,9 +23,13 @@ namespace MyPersonalReviewer.Controllers
         _userManager = userManager;
         _config = config;
     }
+    [Authorize]
         public async Task<IActionResult> Index()
         {
-            var modelData = await _service.GetPlacesList();
+            var currentUser = await _userManager.GetUserAsync(User);
+                if(currentUser == null) return Challenge();
+            
+            var modelData = await _service.GetPlacesList(currentUser);
             
             MyPlacesViewModel model = new MyPlacesViewModel()
             {
@@ -34,12 +38,12 @@ namespace MyPersonalReviewer.Controllers
             ViewData["ApiKey"] = _config.GetSection("GeoLocationApi").GetSection("ApiKey").Value;
             return View(model);
         }
-
         public IActionResult AddNewPlaces()
         {
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPlaceAction(Places place)
         {
             if(!ModelState.IsValid)
@@ -53,6 +57,19 @@ namespace MyPersonalReviewer.Controllers
             
             if(!success)
                 return BadRequest("Could not add item");
+            return RedirectToAction("Index");
+        }
+        
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePlaceAction(Guid placeId)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if(currentUser == null) return Challenge();
+            
+            var success = await _service.DeletePlaceAsync(placeId,currentUser);
+            
+            if(!success)
+                return BadRequest("Could not delete item");
             return RedirectToAction("Index");
         }
 

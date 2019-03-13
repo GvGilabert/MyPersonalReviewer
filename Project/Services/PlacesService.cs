@@ -47,19 +47,15 @@ namespace MyPersonalReviewer.Services
             return result == 1;
         }
 
-        public async Task<bool> DeletePlaceAsync(Places PlaceToDelete, ApplicationUser user)
+        public async Task<bool> DeletePlaceAsync(Guid placeId, ApplicationUser user)
         {
-            if(PlaceToDelete.CreatedByUserId != user.Id)
+            var placeToDelete = _context.Places.Where(p=>p.Id==placeId).SingleOrDefault(); 
+            if(placeToDelete.CreatedByUserId != user.Id)
                  throw new InvalidUserException();
                 
-            var place = await _context.Places.Where
-            (p=> p.Id==PlaceToDelete.Id
-            && p.CreatedByUserId == user.Id)
-            .SingleOrDefaultAsync();
+            if(placeToDelete==null) return false;
 
-            if(place==null) return false;
-
-            _context.Places.Remove(place);
+            _context.Places.Remove(placeToDelete);
             var result = await _context.SaveChangesAsync();
             return result == 1;
         }

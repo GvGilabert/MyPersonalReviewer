@@ -43,10 +43,20 @@ if(addTodoBtn != null)
     addTodoBtn.addEventListener("click", function () {
         if(document.getElementById("inputAddressAddPlace").value != "")
         { 
+            disableThis(addTodoBtn);
             document.getElementById("AddPlaceAction").submit();
         }else
         {
             this.innerHTML ="Seleccione una dirección!";
         }
     });
+}
+function disableThis(a)
+{
+    a.disabled = true;
+}
+function deletePlace(b)
+{
+    disableThis(b);
+    $("#delete-place-form").submit();
 }
