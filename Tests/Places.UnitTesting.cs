@@ -203,7 +203,7 @@ namespace Tests
                 var service = new PlacesService(context);
                 var menu = CreateFakeMenuItem("FakeMenuName",20.50m,user);
                 await service.AddPlaceAsync(place,user);
-                await service.AddMenuItemAsync(menu,place,user);
+                await service.AddMenuItemAsync(menu,place.Id,user);
             }
 
             using (var context = new ApplicationDbContext(options))
@@ -230,7 +230,7 @@ namespace Tests
                     var service = new PlacesService(context);
                     await service.AddPlaceAsync(place,user);
                     var menu = CreateFakeMenuItem("",20.50m,user);
-                    await service.AddMenuItemAsync(menu,place,user);
+                    await service.AddMenuItemAsync(menu,place.Id,user);
                 }
                 throw new Exception();
             }
@@ -334,15 +334,15 @@ namespace Tests
             {
                 var service = new PlacesService(context);
                 await service.AddPlaceAsync(place,user);
-                await service.AddMenuItemAsync(menu,place,user);
-                await service.AddMenuItemAsync(menuB,place,user);
-                await service.AddMenuItemAsync(menuC,place,user);
+                await service.AddMenuItemAsync(menu,place.Id,user);
+                await service.AddMenuItemAsync(menuB,place.Id,user);
+                await service.AddMenuItemAsync(menuC,place.Id,user);
             }
 
             using (var context = new ApplicationDbContext(options))
             {
                 var service = new PlacesService(context);
-                var placesArr = await service.GetMenuItemsList(place); 
+                var placesArr = await service.GetMenuItemsList(place.Id); 
                 Assert.True(placesArr.Length == 3);
                 Assert.True(placesArr[0].Name == "FakeMenuItem");
                 context.Database.EnsureDeleted();

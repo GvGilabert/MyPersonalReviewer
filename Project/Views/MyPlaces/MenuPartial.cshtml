@@ -1,0 +1,42 @@
+@model MenuItemsViewModel
+<h2>Items available in this place</h2>
+@if(Model.menuItems != null)
+{
+    foreach (var item in Model.menuItems)
+    {
+        <ul>
+            <li>@item.Name</li>
+            <li>@item.Price</li>
+        </ul>
+    }
+}
+<button type="button" data-toggle="modal" data-target="#addMenuItemModal">
+Add Menu Item
+</button>
+<!--Modal Select Address-->
+<div class="modal fade" id="addMenuItemModal" tabindex="-1" role="dialog" aria-labelledby="addMenuItemModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a new item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addMenuForm" asp-action="addMenuItemAction" method="POST">
+                    <input name="Name">
+                    <input name="Price">
+                    <input name="PlaceId" value="">    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                <button type="submit" class="btn btn-primary" id="addMenuItemBtn" onclick="submitForm('addMenuForm')">Salvar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

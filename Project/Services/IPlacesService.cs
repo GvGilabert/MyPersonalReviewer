@@ -11,8 +11,8 @@ namespace MyPersonalReviewer.Controllers
     Task<bool> DeletePlaceAsync(Guid PlaceToDelete, ApplicationUser user);
     Task<Places[]> GetPlacesList();
     Task<Places[]> GetPlacesList(ApplicationUser user);
-    Task<Menu[]> GetMenuItemsList(Places place);
-    Task<bool> AddMenuItemAsync(Menu menu, Places place, ApplicationUser user);
+    Task<Menu[]> GetMenuItemsList(Guid placeID);
+    Task<bool> AddMenuItemAsync(Menu menu, Guid place, ApplicationUser user);
 
     }
 }

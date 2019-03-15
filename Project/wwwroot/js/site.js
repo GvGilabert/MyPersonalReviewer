@@ -60,3 +60,8 @@ function deletePlace(b)
     disableThis(b);
     $("#delete-place-form").submit();
 }
+
+function submitForm(s)
+{
+    $("#"+s).submit();
+}

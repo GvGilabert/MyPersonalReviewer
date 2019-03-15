@@ -82,6 +82,34 @@ namespace MyPersonalReviewer.Controllers
             MapApiService map = new MapApiService(_config);
             model.Info = await map.GeolocationServiceAsync(address);
             return PartialView (model);
+        }
+
+        public async Task<IActionResult> MenuPartial(Guid placeId)
+        {
+            //var currentUser = await _userManager.GetUserAsync(User);
+            //if(currentUser == null) return Challenge();
+            var modelData = await _service.GetMenuItemsList(placeId);
+            
+            MenuItemsViewModel model = new MenuItemsViewModel()
+            {
+                menuItems = modelData
+            }; 
+           
+            return PartialView (model);
+        }
+
+        public async Task<IActionResult> AddMenuItemAction(Guid placeId, Menu menu)
+        {
+            if(!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            var currentUser = await _userManager.GetUserAsync(User);
+            if(currentUser == null) return Challenge();
+            var success = await _service.AddMenuItemAsync(menu,placeId,currentUser);    
+            if(!success)
+                return BadRequest("Could not add item");
+            return RedirectToAction("Index");
         } 
     }
 }
