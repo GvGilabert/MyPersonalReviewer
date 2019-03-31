@@ -47,6 +47,9 @@
     @foreach (var item in Model.Places)
     {
         <li>@count - @item.Name - @item.Address - @item.Category
+          <input type="hidden" name="nameOfPlace" value="@item.Name">
+          <input type="hidden" name="idOfPlace" value="@item.Id">
+          <button type="button" name="openMenuBtn" id="menu-place" class="btn-success" data-toggle="modal" data-target="#addMenuItemModal">Menu</button>
           <button type="button" data-toggle="modal" data-target="#addressesDeleteModal" id="delete-place" class="btn-danger">Delete</button>
           <form	id="delete-place-form" asp-action="DeletePlaceAction" method="POST">									
             <input type="hidden" name="placeId" value="@item.Id">  				
@@ -56,7 +59,7 @@
     }
 </ul>
 <a class="btn btn-primary" data-toggle="collapse" href="#collapsedContent" role="button" aria-expanded="false" aria-controls="collapsedContent">
-    Add NEW place
+    Add a NEW place
 </a>
 
 <div id="map" style="width: 100%; height: 530px;"></div>

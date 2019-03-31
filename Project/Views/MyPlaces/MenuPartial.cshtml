@@ -10,9 +10,6 @@
         </ul>
     }
 }
-<button type="button" data-toggle="modal" data-target="#addMenuItemModal">
-Add Menu Item
-</button>
 <!--Modal Select Address-->
 <div class="modal fade" id="addMenuItemModal" tabindex="-1" role="dialog" aria-labelledby="addMenuItemModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -25,9 +22,12 @@ Add Menu Item
             </div>
             <div class="modal-body">
                 <form id="addMenuForm" asp-action="addMenuItemAction" method="POST">
+                    <h3 id="menuItemPlace">Place Name</h3>
+                    <label>Name:</label>
                     <input name="Name">
+                    <label>Price:</label>
                     <input name="Price">
-                    <input name="PlaceId" value="">    
+                    <input type="hidden" id="menuItemId" name="PlaceId">    
                 </form>
             </div>
             <div class="modal-footer">

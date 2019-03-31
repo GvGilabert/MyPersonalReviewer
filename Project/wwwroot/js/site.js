@@ -65,3 +65,12 @@ function submitForm(s)
 {
     $("#"+s).submit();
 }
+
+$(document).on('click', ':button[name="openMenuBtn"]', 
+function () {
+    let n = $(this).parent().find('input[name="nameOfPlace"]').val();
+    let id = $(this).parent().find('input[name="idOfPlace"]').val();
+    $("#menuItemPlace").text(n);
+    $("#menuItemId").val(id);
+    
+});
