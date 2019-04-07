@@ -18,12 +18,13 @@
         {
           @if(!String.IsNullOrEmpty(marker.LatLong))
           {
+            int nameChars = (marker.Name.Length < 4)?marker.Name.Length:4;
             <Text>
             L.marker([@marker.LatLong], {
             icon: L.mapquest.icons.flag({
             primaryColor: '#22407F',
             secondaryColor: '#3B5998',
-            symbol: "@marker.Name.Substring(0,4)"
+            symbol: "@marker.Name.Substring(0,nameChars)"
             }),
             draggable: false
             }).bindPopup("@marker.Name"+"<br>"+"@marker.Category.ToString()").addTo(map);

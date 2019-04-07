@@ -1,38 +1,29 @@
 @model MenuItemsViewModel
-<h2>Items available in this place</h2>
-@if(Model.menuItems != null)
-{
-    foreach (var item in Model.menuItems)
-    {
-        <ul>
-            <li>@item.Name</li>
-            <li>@item.Price</li>
-        </ul>
-    }
-}
+
 <!--Modal Select Address-->
 <div class="modal fade" id="addMenuItemModal" tabindex="-1" role="dialog" aria-labelledby="addMenuItemModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add a new item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h3 class="modal-title" id="menuItemPlace">Name of the place</h3>
             </div>
             <div class="modal-body">
-                <form id="addMenuForm" asp-action="addMenuItemAction" method="POST">
-                    <h3 id="menuItemPlace">Place Name</h3>
+                <div class='menuItemsPar'>
+                <!--space for menu items, MeneItemsPartial content-->
+                </div>
+                <button class="btn-primary" data-toggle="collapse" data-target="#addMenuForm">Add new items</button>
+
+                <form id="addMenuForm" class="collapse" asp-action="addMenuItemAction" method="POST">
                     <label>Name:</label>
                     <input name="Name">
                     <label>Price:</label>
-                    <input name="Price">
+                    <input name="Price" size="4">
+                    <button type="submit" class="btn-success" id="addMenuItemBtn" onclick="submitForm('addMenuForm')">Salvar cambios</button>
                     <input type="hidden" id="menuItemId" name="PlaceId">    
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button type="submit" class="btn btn-primary" id="addMenuItemBtn" onclick="submitForm('addMenuForm')">Salvar cambios</button>
             </div>
         </div>
     </div>
