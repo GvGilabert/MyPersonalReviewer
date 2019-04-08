@@ -1,32 +1,32 @@
 My Personal Reviewer	
 
-This project is going to be an MVC Net Core web app, for doing personal or public reviews of places the users visit.
+This project is an MVC Net Core web app for doing personal or public reviews of places the user visits.
 
 Some of the features to be implemented to this project are:
 
-- Carga de lugares visitados
-	- Nombre, dirección, categoría.
-	- Carga de productos que vende (CARTA)
-	con precios de referencia (opcional)
+- Adding places to the map
+	* Each place will have the following information:
+	- Name, address and category.
+	- Products or services available in the place with prices (Menu)
 
-- Review de lugares
-	- Review escrita
-	- Puntaje
-		Servicio
-		Ambiente
-		Productos (promedio de reviews de productos)
-	- Carga de fotos
-
-- Review de productos consumidos
-	- Evaluar con 1 a 5 estrellas
-	- Dejar una review escrita
-	- Carga de fotos
-
-- Busqueda
-	-Por barrio o cercanía a dirección (gps en mobile)
-	-Por producto
-	-Por categoría
-	-En mapa
-	-Posibilidad de ordenamiento por diferentes campos
+- Reviews of places
+	* The user will be able to leave reviews:
+	- Written review
+	- Picture uploading
+	- Scoring system (0 to 5 Stars)
+		- By service
+		- By ambiance
+		- By price
+	- Uploading of pictures
 	
-- Login con Gmail
+- Review of products	
+	- Written review
+	- Picture uploading
+	- Scoring system (0 to 5 Stars)
+	
+- Searching of places
+	- By address or proximity 
+	- By product 
+	- By Category
+	
+- Gmail Login
