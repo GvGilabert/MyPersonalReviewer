@@ -1,0 +1,10 @@
+@model MenuItemsViewModel
+<h4>Stuff available in this place</h4>
+<ul>
+@foreach (var item in Model.menuItems)
+{
+    <li>
+        @item.Name - $@item.Price
+    </li>
+}
+</ul>

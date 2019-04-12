@@ -17,7 +17,7 @@ function enableBtn(btn)
 }
 
 function AddressPartial() {
-let addressString = document.getElementById("inputAddressAddPlace").value;
+    let addressString = document.getElementById("inputAddressAddPlace").value;
     $.ajax(
         {
             type: "POST",
@@ -25,6 +25,17 @@ let addressString = document.getElementById("inputAddressAddPlace").value;
             data: { address: addressString },
             success: function (data) { $('.modal-body').html(data); },
             error: function (data) { $('.modal-body').html("Please complete the address field!"); }
+        });
+}
+
+function MenuPartial(idG) {
+    $.ajax(
+        {
+            type: "POST",
+            url: "../MyPlaces/MenuItemsPartial",
+            data: { placeId: idG },
+            success: function (data) { $('.menuItemsPar').html(data); },
+            error: function (data) { $('.menuItemsPar').html("Error!"); }
         });
 }
 
@@ -55,10 +66,17 @@ function disableThis(a)
 {
     a.disabled = true;
 }
+
+let ElementToDlt;
+$(document).on('click',':button[name="deleteBtn"]',function()
+{ 
+    ElementToDlt = $(this).parent().find('form[name="deleteBtnF"]');
+});
+
 function deletePlace(b)
 {
     disableThis(b);
-    $("#delete-place-form").submit();
+    $(ElementToDlt).submit();
 }
 
 function submitForm(s)
@@ -72,5 +90,6 @@ function () {
     let id = $(this).parent().find('input[name="idOfPlace"]').val();
     $("#menuItemPlace").text(n);
     $("#menuItemId").val(id);
+    MenuPartial(id);
     
 });

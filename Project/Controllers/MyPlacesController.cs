@@ -84,12 +84,9 @@ namespace MyPersonalReviewer.Controllers
             return PartialView (model);
         }
 
-        public async Task<IActionResult> MenuPartial(Guid placeId)
+        public async Task<IActionResult> MenuItemsPartial(Guid placeId)
         {
-            //var currentUser = await _userManager.GetUserAsync(User);
-            //if(currentUser == null) return Challenge();
             var modelData = await _service.GetMenuItemsList(placeId);
-            
             MenuItemsViewModel model = new MenuItemsViewModel()
             {
                 menuItems = modelData
